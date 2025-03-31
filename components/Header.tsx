@@ -31,6 +31,7 @@ export function Header({ title, showBackButton = false, onCategoryChange, curren
             <TouchableOpacity 
               style={styles.backButton} 
               onPress={handleBackPress}
+              testID="header-back-button"
             >
               <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
@@ -41,7 +42,10 @@ export function Header({ title, showBackButton = false, onCategoryChange, curren
         </View>
         <View style={styles.rightSection}>
           {!disableMenu && (
-            <TouchableOpacity onPress={() => setMenuVisible(true)}>
+            <TouchableOpacity 
+              onPress={() => setMenuVisible(true)}
+              testID="header-menu-button"
+            >
               <Text style={styles.menuIcon}>⋮</Text>
             </TouchableOpacity>
           )}
@@ -118,6 +122,13 @@ const styles = StyleSheet.create({
   headerWrapper: {
     backgroundColor: '#212121',
     zIndex: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.2)',
   },
   headerContainer: {
     height: 56,
@@ -125,6 +136,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
+    opacity: 1,
   },
   leftSection: {
     width: 40,

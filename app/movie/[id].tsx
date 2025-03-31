@@ -12,6 +12,8 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { fetchMovieDetails } from "@/services/api";
 import { Movie } from "@/types/movie";
 import { Header } from "@/components/Header";
+import { LoadingIndicator } from "@/components/LoadingIndicator";
+import { ErrorDisplay } from "@/components/ErrorDisplay";
 import { getImageUrl, getPlaceholderImage } from "@/utils/imageUtils";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -42,19 +44,11 @@ export default function MovieDetailScreen() {
   }, [id]);
 
   if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingIndicator />;
   }
 
   if (error) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Error: {error.message}</Text>
-      </View>
-    );
+    return <ErrorDisplay error={error}/>;
   }
 
   if (!movie) {

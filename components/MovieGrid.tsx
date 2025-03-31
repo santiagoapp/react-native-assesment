@@ -65,6 +65,7 @@ export const MovieGrid: React.FC<MovieGridProps> = ({
       onEndReachedThreshold={0.5}
       ListFooterComponent={renderFooter}
       contentContainerStyle={styles.contentContainer}
+      testID="movie-grid-flatlist"
     />
   );
 };
