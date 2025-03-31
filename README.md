@@ -14,8 +14,8 @@ Movie Discovery App is a React Native mobile application that allows users to br
 ## Screenshots
 
 <p align="center">
-  <img src="./assets/images/screenshot1.png" alt="screenshot1" width="300"/>
-  <img src="./assets/images/screenshot2.png" alt="screenshot2" width="300"/>
+  <img src="./assets/images/screenshot1.png" alt="screenshot1" width="300" style="margin-right: 20px"/>
+  <img src="./assets/images/screenshot3.png" alt="screenshot2" width="300"/>
 </p>
 
 ## Technologies Used
@@ -38,12 +38,14 @@ Movie Discovery App is a React Native mobile application that allows users to br
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/react-native-app.git
    cd react-native-app
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or

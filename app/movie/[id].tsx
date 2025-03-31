@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   ScrollView,
-  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleBackground: {
-    backgroundColor: "#757575",
+    backgroundColor: "#746A64",
     paddingVertical: 16,
     paddingHorizontal: 16,
   },
@@ -185,6 +184,7 @@ const styles = StyleSheet.create({
   poster: {
     width: 115,
     height: 170,
+    borderRadius: 2,
   },
   infoContainer: {
     flex: 1,
@@ -193,12 +193,14 @@ const styles = StyleSheet.create({
   },
   yearText: {
     fontSize: 20,
-    color: "#757575",
-    marginBottom: 4,
+    fontWeight: "400",
+    color: "#212121",
+    marginBottom: 1,
   },
   durationText: {
     fontSize: 14,
-    color: "#757575",
+    color: "#212121",
+    fontStyle: "italic",
     marginBottom: 16,
   },
   ratingContainer: {
@@ -207,10 +209,10 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#757575",
+    color: "#212121",
   },
   favoriteButton: {
-    backgroundColor: "#757575",
+    backgroundColor: "#746A64",
     height: 56,
     alignItems: "center",
     justifyContent: "center",
@@ -224,6 +226,7 @@ const styles = StyleSheet.create({
   },
   overview: {
     fontSize: 14,
+    fontWeight: "500",
     lineHeight: 22,
     color: "#757575",
   },
@@ -231,8 +234,8 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   trailersTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
+    fontWeight: "500",
     color: "#757575",
     marginBottom: 16,
     borderBottomWidth: 1,
@@ -241,11 +244,13 @@ const styles = StyleSheet.create({
   },
   trailerButton: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#FAFAFA',
     padding: 16,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 16,
+    backgroundColor: '#FAFAFA',
+    borderRadius: 2,
   },
   playIcon: {
     marginRight: 8,
