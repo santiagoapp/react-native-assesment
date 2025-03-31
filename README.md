@@ -14,8 +14,8 @@ Movie Discovery App is a React Native mobile application that allows users to br
 ## Screenshots
 
 <p align="center">
-  <img src="./assets/images/screenshot1.png" alt="screenshot1" width="200"/>
-  <img src="./assets/images/screenshot2.png" alt="screenshot2" width="200"/>
+  <img src="./assets/images/screenshot1.png" alt="screenshot1" width="300"/>
+  <img src="./assets/images/screenshot2.png" alt="screenshot2" width="300"/>
 </p>
 
 ## Technologies Used
