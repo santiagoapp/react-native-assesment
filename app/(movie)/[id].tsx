@@ -15,12 +15,14 @@ import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { ErrorDisplay } from "@/components/ErrorDisplay";
 import { getImageUrl, getPlaceholderImage } from "@/utils/imageUtils";
 import { Ionicons } from "@expo/vector-icons";
+import { useFavorites } from "@/contexts/FavoritesContext";
 
 export default function MovieDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
+  const { favorites, addFavorite, removeFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -98,8 +100,19 @@ export default function MovieDetailScreen() {
                 </Text>
               </View>
 
-              <TouchableOpacity style={styles.favoriteButton}>
-                <Text style={styles.favoriteButtonText}>Add to Favorite</Text>
+              <TouchableOpacity 
+                style={[styles.favoriteButton, isFavorite(Number(id)) && styles.favoriteButtonActive]}
+                onPress={() => {
+                  if (isFavorite(Number(id))) {
+                    removeFavorite(Number(id));
+                  } else if (movie) {
+                    addFavorite(movie);
+                  }
+                }}
+              >
+                <Text style={styles.favoriteButtonText}>
+                  {isFavorite(Number(id)) ? "Remove from Favorites" : "Add to Favorite"}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -216,6 +229,9 @@ const styles = StyleSheet.create({
     height: 56,
     alignItems: "center",
     justifyContent: "center",
+  },
+  favoriteButtonActive: {
+    backgroundColor: "#D32F2F",
   },
   favoriteButtonText: {
     color: "#fff",

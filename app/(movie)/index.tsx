@@ -14,7 +14,7 @@ export default function DiscoveryScreen() {
     useMovies(category);
 
   const handleMoviePress = (movie: Movie) => {
-    router.push(`/movie/${movie.id}`);
+    router.push(`/(movie)/${movie.id}`);
   };
 
   const getHeaderTitle = () => {
