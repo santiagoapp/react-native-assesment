@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/constants/Config';
-import { AuthTokens, LoginCredentials, TokenRefreshResponse, TokenVerifyResponse } from '@/types/auth';
+import { User, AuthTokens, LoginCredentials, TokenRefreshResponse, TokenVerifyResponse } from '@/types/auth';
 import { apiClient } from '@/utils/apiClient';
 import { tokenRefresher } from '@/utils/tokenRefresher';
 
@@ -76,7 +76,7 @@ export const authService = {
    * Get the current user profile
    * @returns User profile data
    */
-  getCurrentUser: async () => {
+  getCurrentUser: async (): Promise<User> => {
     return apiClient.get('/users/me/');
   },
 

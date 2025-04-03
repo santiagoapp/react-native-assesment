@@ -31,7 +31,7 @@ export default function LoginScreen() {
       // No need to navigate - the ProtectedRoute component will handle redirection
     } catch (error) {
       // Error is already handled in the AuthContext
-      console.log('Login error handled by context');
+      console.error('Login error handled by context:', error);
     }
   };
 

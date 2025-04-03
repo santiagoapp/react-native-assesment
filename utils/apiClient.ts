@@ -65,7 +65,7 @@ export const apiClient = {
         } catch (refreshError) {
           // If refresh fails, clear tokens and throw auth error
           await authStorage.removeTokens();
-          throw new Error('Authentication expired');
+          throw new Error(`Authentication expired: ${refreshError}`);
         }
       }
       

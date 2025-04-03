@@ -33,7 +33,7 @@ describe('MovieCard Component', () => {
   });
 
   it('renders correctly with poster path', () => {
-    render(<MovieCard movie={mockMovie} onPress={mockOnPress} />);
+    render(React.createElement(MovieCard, { movie: mockMovie, onPress: mockOnPress }));
     
     const touchable = screen.getByTestId('movie-card-touchable');
     const poster = screen.getByTestId('movie-poster');
@@ -45,7 +45,7 @@ describe('MovieCard Component', () => {
 
   it('renders correctly without poster path', () => {
     const movieWithoutPoster = { ...mockMovie, poster_path: null };
-    render(<MovieCard movie={movieWithoutPoster} onPress={mockOnPress} />);
+    render(React.createElement(MovieCard, { movie: movieWithoutPoster, onPress: mockOnPress }));
     
     const touchable = screen.getByTestId('movie-card-touchable');
     const poster = screen.getByTestId('movie-poster');
@@ -56,7 +56,7 @@ describe('MovieCard Component', () => {
   });
 
   it('calls onPress with the movie when pressed', () => {
-    render(<MovieCard movie={mockMovie} onPress={mockOnPress} />);
+    render(React.createElement(MovieCard, { movie: mockMovie, onPress: mockOnPress }));
     
     const touchable = screen.getByTestId('movie-card-touchable');
     fireEvent.press(touchable);

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AuthState, AuthTokens, LoginCredentials } from '@/types/auth';
+import { AuthState, LoginCredentials } from '@/types/auth';
 import { authService } from '@/services/authService';
 import { authStorage } from '@/utils/authStorage';
 
@@ -11,6 +11,7 @@ interface AuthContextType extends AuthState {
 
 const initialState: AuthState = {
   tokens: null,
+  user: null,
   isAuthenticated: false,
   isLoading: true,
   error: null,
@@ -42,13 +43,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // Verify the access token
           try {
             await authService.verifyToken(tokens.access);
-            setState({
-              tokens,
-              isAuthenticated: true,
-              isLoading: false,
-              error: null,
-            });
+            // Fetch user information after token verification
+            try {
+              const userData = await authService.getCurrentUser();
+              setState({
+                tokens,
+                user: userData,
+                isAuthenticated: true,
+                isLoading: false,
+                error: null,
+              });
+            } catch (userError) {
+              console.error('Failed to fetch user profile:', userError);
+              setState({
+                tokens,
+                user: null,
+                isAuthenticated: true,
+                isLoading: false,
+                error: null,
+              });
+            }
           } catch (error) {
+            console.error('Failed to verify access token:', error);
             // Token might be expired, try to refresh
             try {
               const refreshResult = await authService.refreshToken(tokens.refresh);
@@ -57,17 +73,33 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 access: refreshResult.access,
               };
               await authStorage.storeTokens(updatedTokens);
-              setState({
-                tokens: updatedTokens,
-                isAuthenticated: true,
-                isLoading: false,
-                error: null,
-              });
+              // Fetch user information after token refresh
+              try {
+                const userData = await authService.getCurrentUser();
+                setState({
+                  tokens: updatedTokens,
+                  user: userData,
+                  isAuthenticated: true,
+                  isLoading: false,
+                  error: null,
+                });
+              } catch (userError) {
+                console.error('Failed to fetch user profile:', userError);
+                setState({
+                  tokens: updatedTokens,
+                  user: null,
+                  isAuthenticated: true,
+                  isLoading: false,
+                  error: null,
+                });
+              }
             } catch (refreshError) {
+              console.error('Failed to refresh access token:', refreshError);
               // Refresh token is also invalid, clear everything
               await authStorage.removeTokens();
               setState({
                 tokens: null,
+                user: null,
                 isAuthenticated: false,
                 isLoading: false,
                 error: null,
@@ -78,8 +110,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setState(prev => ({ ...prev, isLoading: false }));
         }
       } catch (error) {
+        console.error('Failed to load authentication state:', error);
         setState({
           tokens: null,
+          user: null,
           isAuthenticated: false,
           isLoading: false,
           error: 'Failed to load authentication state',
@@ -95,12 +129,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const tokens = await authService.login(credentials);
       await authStorage.storeTokens(tokens);
-      setState({
-        tokens,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-      });
+      
+      // Fetch user information after successful login
+      try {
+        const userData = await authService.getCurrentUser();
+        setState({
+          tokens,
+          user: userData,
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        });
+      } catch (userError) {
+        // Still authenticate the user even if we can't fetch their profile
+        console.error('Failed to fetch user profile:', userError);
+        setState({
+          tokens,
+          user: null,
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        });
+      }
     } catch (error) {
       setState(prev => ({
         ...prev,
@@ -117,11 +167,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       await authStorage.removeTokens();
       setState({
         tokens: null,
+        user: null,
         isAuthenticated: false,
         isLoading: false,
         error: null,
       });
     } catch (error) {
+      console.error('Logout failed:', error);
       setState(prev => ({
         ...prev,
         isLoading: false,
@@ -140,15 +192,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         access: refreshResult.access,
       };
       await authStorage.storeTokens(updatedTokens);
-      setState(prev => ({
-        ...prev,
-        tokens: updatedTokens,
-        isAuthenticated: true,
-        error: null,
-      }));
+      // Fetch updated user information after token refresh
+      try {
+        const userData = await authService.getCurrentUser();
+        setState(prev => ({
+          ...prev,
+          tokens: updatedTokens,
+          user: userData,
+          isAuthenticated: true,
+          error: null,
+        }));
+      } catch (userError) {
+        console.error('Failed to fetch user profile:', userError);
+        setState(prev => ({
+          ...prev,
+          tokens: updatedTokens,
+          isAuthenticated: true,
+          error: null,
+        }));
+      }
       return true;
     } catch (error) {
       // If refresh fails, log the user out
+      console.error('Failed to refresh access token:', error);
       await logout();
       return false;
     }

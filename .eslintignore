@@ -1,0 +1,7 @@
+# Ignore ESLint config file
+eslint.config.js
+
+# Other ignored files and directories
+node_modules/
+.expo/
+dist/

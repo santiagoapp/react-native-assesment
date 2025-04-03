@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   Modal,
   View,
@@ -8,14 +8,13 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
-  Platform,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface AlertButton {
   text: string;
   onPress?: () => void;
-  style?: 'default' | 'cancel' | 'destructive';
+  style?: "default" | "cancel" | "destructive";
 }
 
 interface CustomAlertProps {
@@ -24,16 +23,16 @@ interface CustomAlertProps {
   message?: string;
   buttons?: AlertButton[];
   onDismiss?: () => void;
-  type?: 'success' | 'error' | 'warning' | 'info';
+  type?: "success" | "error" | "warning" | "info";
 }
 
 export const CustomAlert: React.FC<CustomAlertProps> = ({
   visible,
   title,
   message,
-  buttons = [{ text: 'OK' }],
+  buttons = [{ text: "OK" }],
   onDismiss,
-  type = 'info',
+  type = "info",
 }) => {
   const [modalVisible, setModalVisible] = useState(visible);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -73,29 +72,29 @@ export const CustomAlert: React.FC<CustomAlertProps> = ({
 
   const getIconName = () => {
     switch (type) {
-      case 'success':
-        return 'checkmark-circle-outline';
-      case 'error':
-        return 'alert-circle-outline';
-      case 'warning':
-        return 'warning-outline';
-      case 'info':
+      case "success":
+        return "checkmark-circle-outline";
+      case "error":
+        return "alert-circle-outline";
+      case "warning":
+        return "warning-outline";
+      case "info":
       default:
-        return 'information-circle-outline';
+        return "information-circle-outline";
     }
   };
 
   const getIconColor = () => {
     switch (type) {
-      case 'success':
-        return '#4cd964';
-      case 'error':
-        return '#ff3b30';
-      case 'warning':
-        return '#ff9500';
-      case 'info':
+      case "success":
+        return "#4cd964";
+      case "error":
+        return "#ff3b30";
+      case "warning":
+        return "#ff9500";
+      case "info":
       default:
-        return '#007aff';
+        return "#007aff";
     }
   };
 
@@ -128,15 +127,19 @@ export const CustomAlert: React.FC<CustomAlertProps> = ({
               ]}
             >
               <View style={styles.iconContainer}>
-                <Ionicons name={getIconName()} size={48} color={getIconColor()} />
+                <Ionicons
+                  name={getIconName()}
+                  size={48}
+                  color={getIconColor()}
+                />
               </View>
               <Text style={styles.modalTitle}>{title}</Text>
               {message && <Text style={styles.modalText}>{message}</Text>}
               <View style={styles.buttonContainer}>
                 {buttons.map((button, index) => {
-                  const isDestructive = button.style === 'destructive';
-                  const isCancel = button.style === 'cancel';
-                  
+                  const isDestructive = button.style === "destructive";
+                  const isCancel = button.style === "cancel";
+
                   return (
                     <TouchableOpacity
                       key={index}
@@ -172,17 +175,17 @@ export const CustomAlert: React.FC<CustomAlertProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 16,
     padding: 24,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -190,54 +193,54 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: Math.min(Dimensions.get('window').width * 0.85, 320),
+    width: Math.min(Dimensions.get("window").width * 0.85, 320),
   },
   iconContainer: {
     marginBottom: 16,
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 8,
   },
   modalText: {
     fontSize: 14,
     marginBottom: 20,
-    textAlign: 'center',
-    color: '#666',
+    textAlign: "center",
+    color: "#666",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
   },
   button: {
     flex: 1,
-    backgroundColor: '#007aff',
+    backgroundColor: "#007aff",
     borderRadius: 8,
     padding: 12,
     elevation: 2,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonMarginLeft: {
     marginLeft: 8,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   destructiveButton: {
-    backgroundColor: '#ff3b30',
+    backgroundColor: "#ff3b30",
   },
   destructiveText: {
-    color: 'white',
+    color: "white",
   },
   cancelButton: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
   },
   cancelText: {
-    color: '#333',
+    color: "#333",
   },
 });
