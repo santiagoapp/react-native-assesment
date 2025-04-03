@@ -1,12 +1,12 @@
-import React from 'react';
-import { CustomAlert } from '@/components/CustomAlert';
+import React from "react";
+import { CustomAlert } from "@/components/CustomAlert";
 
-type AlertType = 'success' | 'error' | 'warning' | 'info';
+type AlertType = "success" | "error" | "warning" | "info";
 
 interface AlertButton {
   text: string;
   onPress?: () => void;
-  style?: 'default' | 'cancel' | 'destructive';
+  style?: "default" | "cancel" | "destructive";
 }
 
 interface AlertOptions {
@@ -26,10 +26,10 @@ class AlertManager {
     onDismiss?: () => void;
   } = {
     visible: false,
-    title: '',
-    message: '',
-    buttons: [{ text: 'OK' }],
-    type: 'info',
+    title: "",
+    message: "",
+    buttons: [{ text: "OK" }],
+    type: "info",
   };
 
   private listeners: Set<(state: typeof this.alertState) => void> = new Set();
@@ -48,8 +48,8 @@ class AlertManager {
       visible: true,
       title,
       message,
-      buttons: options?.buttons || [{ text: 'OK' }],
-      type: options?.type || 'info',
+      buttons: options?.buttons || [{ text: "OK" }],
+      type: options?.type || "info",
       onDismiss: () => {
         this.hide();
         options?.onDismiss?.();
@@ -63,7 +63,9 @@ class AlertManager {
     this.notifyListeners();
   }
 
-  public subscribe(listener: (state: typeof this.alertState) => void): () => void {
+  public subscribe(
+    listener: (state: typeof this.alertState) => void
+  ): () => void {
     this.listeners.add(listener);
     listener(this.alertState);
     return () => {
@@ -81,24 +83,31 @@ class AlertManager {
 export const alertManager = AlertManager.getInstance();
 
 export const Alert = {
-  alert: (title: string, message?: string, buttons?: AlertButton[], type?: AlertType) => {
+  alert: (
+    title: string,
+    message?: string,
+    buttons?: AlertButton[],
+    type?: AlertType
+  ) => {
     alertManager.show(title, message, { buttons, type });
   },
   success: (title: string, message?: string, buttons?: AlertButton[]) => {
-    alertManager.show(title, message, { buttons, type: 'success' });
+    alertManager.show(title, message, { buttons, type: "success" });
   },
   error: (title: string, message?: string, buttons?: AlertButton[]) => {
-    alertManager.show(title, message, { buttons, type: 'error' });
+    alertManager.show(title, message, { buttons, type: "error" });
   },
   warning: (title: string, message?: string, buttons?: AlertButton[]) => {
-    alertManager.show(title, message, { buttons, type: 'warning' });
+    alertManager.show(title, message, { buttons, type: "warning" });
   },
   info: (title: string, message?: string, buttons?: AlertButton[]) => {
-    alertManager.show(title, message, { buttons, type: 'info' });
+    alertManager.show(title, message, { buttons, type: "info" });
   },
 };
 
-export const AlertProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AlertProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [alertState, setAlertState] = React.useState(alertManager.alertState);
 
   React.useEffect(() => {

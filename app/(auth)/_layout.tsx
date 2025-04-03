@@ -1,13 +1,13 @@
-import { Stack } from 'expo-router';
-import React from 'react';
+import { Stack } from "expo-router";
+import React from "react";
 
 export default function AuthLayout() {
   return (
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: '#000' },
-        animation: 'fade',
+        contentStyle: { backgroundColor: "#000" },
+        animation: "fade",
       }}
     />
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,20 +9,20 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-} from 'react-native';
-import { Alert } from '@/utils/alertUtils';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuth } from '@/contexts/AuthContext';
+} from "react-native";
+import { Alert } from "@/utils/alertUtils";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login, isLoading, error } = useAuth();
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.error('Error', 'Please enter both email and password');
+      Alert.error("Error", "Please enter both email and password");
       return;
     }
 
@@ -31,7 +31,7 @@ export default function LoginScreen() {
       // No need to navigate - the ProtectedRoute component will handle redirection
     } catch (error) {
       // Error is already handled in the AuthContext
-      console.error('Login error handled by context:', error);
+      console.error("Login error handled by context:", error);
     }
   };
 
@@ -39,15 +39,15 @@ export default function LoginScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardAvoidingView}
       >
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.formContainer}>
             <Text style={styles.title}>Sign In</Text>
-            
+
             {error && <Text style={styles.errorText}>{error}</Text>}
-            
+
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Email</Text>
               <TextInput
@@ -61,7 +61,7 @@ export default function LoginScreen() {
                 testID="email-input"
               />
             </View>
-            
+
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Password</Text>
               <TextInput
@@ -74,7 +74,7 @@ export default function LoginScreen() {
                 testID="password-input"
               />
             </View>
-            
+
             <TouchableOpacity
               style={styles.button}
               onPress={handleLogin}
@@ -97,55 +97,55 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: "#000",
   },
   keyboardAvoidingView: {
     flex: 1,
   },
   scrollView: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   formContainer: {
     padding: 20,
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 30,
-    textAlign: 'center',
+    textAlign: "center",
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: "#1a1a1a",
     borderRadius: 8,
     padding: 15,
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#0066cc',
+    backgroundColor: "#0066cc",
     borderRadius: 8,
     padding: 15,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   errorText: {
-    color: '#ff3b30',
+    color: "#ff3b30",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

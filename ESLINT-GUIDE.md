@@ -7,6 +7,7 @@ This project has been configured to warn about unused variables through both ESL
 ### Configuration Details
 
 1. **ESLint Configuration**:
+
    - Using `eslint.config.js` (ESLint v9+ flat config format) with the `@typescript-eslint/no-unused-vars` rule set to 'warn'
    - Installed necessary ESLint plugins and dependencies
 

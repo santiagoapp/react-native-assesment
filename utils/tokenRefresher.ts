@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@/constants/Config';
-import { TokenRefreshResponse } from '@/types/auth';
+import { API_BASE_URL } from "@/constants/Config";
+import { TokenRefreshResponse } from "@/types/auth";
 
 /**
  * Utility for refreshing authentication tokens
@@ -14,9 +14,9 @@ export const tokenRefresher = {
     try {
       // Use direct fetch to avoid authentication requirements
       const response = await fetch(`${API_BASE_URL}/token/refresh/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ refresh: refreshToken }),
       });
@@ -27,7 +27,7 @@ export const tokenRefresher = {
 
       return await response.json();
     } catch (error) {
-      console.error('Token refresh error:', error);
+      console.error("Token refresh error:", error);
       throw error;
     }
   },

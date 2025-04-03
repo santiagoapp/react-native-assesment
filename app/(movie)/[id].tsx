@@ -49,7 +49,7 @@ export default function MovieDetailScreen() {
   }
 
   if (error) {
-    return <ErrorDisplay error={error}/>;
+    return <ErrorDisplay error={error} />;
   }
 
   if (!movie) {
@@ -100,8 +100,11 @@ export default function MovieDetailScreen() {
                 </Text>
               </View>
 
-              <TouchableOpacity 
-                style={[styles.favoriteButton, isFavorite(Number(id)) && styles.favoriteButtonActive]}
+              <TouchableOpacity
+                style={[
+                  styles.favoriteButton,
+                  isFavorite(Number(id)) && styles.favoriteButtonActive,
+                ]}
                 onPress={() => {
                   if (isFavorite(Number(id))) {
                     removeFavorite(Number(id));
@@ -111,7 +114,9 @@ export default function MovieDetailScreen() {
                 }}
               >
                 <Text style={styles.favoriteButtonText}>
-                  {isFavorite(Number(id)) ? "Remove from Favorites" : "Add to Favorite"}
+                  {isFavorite(Number(id))
+                    ? "Remove from Favorites"
+                    : "Add to Favorite"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -260,12 +265,12 @@ const styles = StyleSheet.create({
   },
   trailerButton: {
     borderWidth: 1,
-    borderColor: '#FAFAFA',
+    borderColor: "#FAFAFA",
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: "#FAFAFA",
     borderRadius: 2,
   },
   playIcon: {

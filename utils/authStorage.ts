@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthTokens } from '@/types/auth';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthTokens } from "@/types/auth";
 
-const AUTH_TOKENS_KEY = 'auth_tokens';
+const AUTH_TOKENS_KEY = "auth_tokens";
 
 export const authStorage = {
   /**
@@ -11,7 +11,7 @@ export const authStorage = {
     try {
       await AsyncStorage.setItem(AUTH_TOKENS_KEY, JSON.stringify(tokens));
     } catch (error) {
-      console.error('Error storing auth tokens:', error);
+      console.error("Error storing auth tokens:", error);
       throw error;
     }
   },
@@ -24,7 +24,7 @@ export const authStorage = {
       const tokensString = await AsyncStorage.getItem(AUTH_TOKENS_KEY);
       return tokensString ? JSON.parse(tokensString) : null;
     } catch (error) {
-      console.error('Error getting auth tokens:', error);
+      console.error("Error getting auth tokens:", error);
       return null;
     }
   },
@@ -36,7 +36,7 @@ export const authStorage = {
     try {
       await AsyncStorage.removeItem(AUTH_TOKENS_KEY);
     } catch (error) {
-      console.error('Error removing auth tokens:', error);
+      console.error("Error removing auth tokens:", error);
       throw error;
     }
   },

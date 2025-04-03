@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+  useEffect,
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Movie } from "@/types/movie";
 
@@ -31,7 +37,10 @@ const initialState: FavoritesState = {
 // Helper functions for AsyncStorage
 const saveFavoritesToStorage = async (favorites: Movie[]) => {
   try {
-    await AsyncStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
+    await AsyncStorage.setItem(
+      FAVORITES_STORAGE_KEY,
+      JSON.stringify(favorites)
+    );
   } catch (error) {
     console.error("Error saving favorites to storage:", error);
   }
@@ -74,18 +83,18 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(favoritesReducer, initialState);
-  
+
   // Load favorites from storage when component mounts
   useEffect(() => {
     const loadFavorites = async () => {
       const storedFavorites = await loadFavoritesFromStorage();
       if (storedFavorites.length > 0) {
-        storedFavorites.forEach(movie => {
+        storedFavorites.forEach((movie) => {
           dispatch({ type: "ADD_FAVORITE", payload: movie });
         });
       }
     };
-    
+
     loadFavorites();
   }, []);
 
@@ -95,7 +104,7 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({
   const removeFavorite = (movieId: number) => {
     dispatch({ type: "REMOVE_FAVORITE", payload: movieId });
   };
-  
+
   // Save favorites to storage whenever they change
   useEffect(() => {
     saveFavoritesToStorage(state.favorites);

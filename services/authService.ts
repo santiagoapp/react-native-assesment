@@ -1,7 +1,13 @@
-import { API_BASE_URL } from '@/constants/Config';
-import { User, AuthTokens, LoginCredentials, TokenRefreshResponse, TokenVerifyResponse } from '@/types/auth';
-import { apiClient } from '@/utils/apiClient';
-import { tokenRefresher } from '@/utils/tokenRefresher';
+import { API_BASE_URL } from "@/constants/Config";
+import {
+  User,
+  AuthTokens,
+  LoginCredentials,
+  TokenRefreshResponse,
+  TokenVerifyResponse,
+} from "@/types/auth";
+import { apiClient } from "@/utils/apiClient";
+import { tokenRefresher } from "@/utils/tokenRefresher";
 
 /**
  * Service for handling authentication operations
@@ -16,9 +22,9 @@ export const authService = {
     try {
       // Use direct fetch here instead of apiClient to avoid auth requirements
       const response = await fetch(`${API_BASE_URL}/token/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
       });
@@ -30,7 +36,7 @@ export const authService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       throw error;
     }
   },
@@ -54,9 +60,9 @@ export const authService = {
     try {
       // Use direct fetch to avoid authentication requirements
       const response = await fetch(`${API_BASE_URL}/token/verify/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ token: accessToken }),
       });
@@ -67,7 +73,7 @@ export const authService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Token verification error:', error);
+      console.error("Token verification error:", error);
       throw error;
     }
   },
@@ -77,7 +83,7 @@ export const authService = {
    * @returns User profile data
    */
   getCurrentUser: async (): Promise<User> => {
-    return apiClient.get('/users/me/');
+    return apiClient.get("/users/me/");
   },
 
   /**
@@ -92,6 +98,6 @@ export const authService = {
     first_name?: string;
     last_name?: string;
   }) => {
-    return apiClient.post('/auth/users/', userData, { requireAuth: false });
+    return apiClient.post("/auth/users/", userData, { requireAuth: false });
   },
 };

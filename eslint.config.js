@@ -1,22 +1,24 @@
 /* eslint-disable */
-const eslint = require('@eslint/js');
-const reactPlugin = require('eslint-plugin-react');
-const reactHooksPlugin = require('eslint-plugin-react-hooks');
-const typescriptEslintParser = require('@typescript-eslint/parser');
-const typescriptEslintPlugin = require('@typescript-eslint/eslint-plugin');
+const eslint = require("@eslint/js");
+const reactPlugin = require("eslint-plugin-react");
+const reactHooksPlugin = require("eslint-plugin-react-hooks");
+const typescriptEslintParser = require("@typescript-eslint/parser");
+const typescriptEslintPlugin = require("@typescript-eslint/eslint-plugin");
+const prettierPlugin = require("eslint-plugin-prettier");
+const prettierConfig = require("eslint-config-prettier");
 
 // Common settings for all files
 const commonConfig = {
   // Global ignores
-  ignores: ['node_modules/**', '.expo/**', 'dist/**', 'eslint.config.js'],
+  ignores: ["node_modules/**", ".expo/**", "dist/**", "eslint.config.js"],
   // React configuration
   plugins: {
     react: reactPlugin,
-    'react-hooks': reactHooksPlugin,
+    "react-hooks": reactHooksPlugin,
   },
   settings: {
     react: {
-      version: 'detect',
+      version: "detect",
     },
   },
   linterOptions: {
@@ -24,63 +26,73 @@ const commonConfig = {
   },
   languageOptions: {
     ecmaVersion: 2021,
-    sourceType: 'module',
+    sourceType: "module",
     globals: {
       // Browser globals
-      window: 'readonly',
-      document: 'readonly',
+      window: "readonly",
+      document: "readonly",
       // Node.js globals
-      process: 'readonly',
-      require: 'readonly',
-      module: 'readonly',
-      global: 'readonly',
+      process: "readonly",
+      require: "readonly",
+      module: "readonly",
+      global: "readonly",
       // React Native globals
-      fetch: 'readonly',
-      console: 'readonly',
+      fetch: "readonly",
+      console: "readonly",
       // Jest globals
-      jest: 'readonly',
-      describe: 'readonly',
-      it: 'readonly',
-      expect: 'readonly',
-      beforeEach: 'readonly',
-      afterEach: 'readonly',
+      jest: "readonly",
+      describe: "readonly",
+      it: "readonly",
+      expect: "readonly",
+      beforeEach: "readonly",
+      afterEach: "readonly",
     },
   },
   rules: {
     // Common rules for all files
-    'react/prop-types': 'off',
-    'react/react-in-jsx-scope': 'off',
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
   },
 };
 
 // TypeScript specific configuration
 const typescriptConfig = {
-  files: ['**/*.ts', '**/*.tsx'],
+  files: ["**/*.ts", "**/*.tsx"],
   languageOptions: {
     parser: typescriptEslintParser,
     parserOptions: {
       ecmaFeatures: {
         jsx: true,
       },
-      project: './tsconfig.json',
+      project: "./tsconfig.json",
     },
   },
   plugins: {
-    '@typescript-eslint': typescriptEslintPlugin,
+    "@typescript-eslint": typescriptEslintPlugin,
   },
   rules: {
     // Turn off ESLint's default rule and use TypeScript's rule instead
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn'],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
   },
 };
 
 // JavaScript specific configuration
 const javascriptConfig = {
-  files: ['**/*.js', '**/*.jsx'],
+  files: ["**/*.js", "**/*.jsx"],
   rules: {
     // Use standard ESLint rule for JavaScript files
-    'no-unused-vars': ['warn'],
+    "no-unused-vars": ["warn"],
+  },
+};
+
+// Prettier configuration
+const prettierRules = {
+  plugins: {
+    prettier: prettierPlugin,
+  },
+  rules: {
+    "prettier/prettier": "error",
   },
 };
 
@@ -89,4 +101,6 @@ module.exports = [
   commonConfig,
   typescriptConfig,
   javascriptConfig,
+  prettierRules,
+  prettierConfig.configs.recommended,
 ];

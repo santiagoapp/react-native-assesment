@@ -1,14 +1,14 @@
-import React from 'react';
-import { 
-  StyleSheet, 
-  FlatList, 
-  View, 
-  Text, 
-  ActivityIndicator, 
+import React from "react";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Text,
+  ActivityIndicator,
   RefreshControl,
-} from 'react-native';
-import { MovieCard } from '@/components/MovieCard';
-import { Movie } from '@/types/movie';
+} from "react-native";
+import { MovieCard } from "@/components/MovieCard";
+import { Movie } from "@/types/movie";
 
 interface MovieGridProps {
   movies: Movie[];
@@ -27,11 +27,11 @@ export const MovieGrid: React.FC<MovieGridProps> = ({
   error,
   onRefresh,
   onEndReached,
-  hasMore
+  hasMore,
 }) => {
   const renderFooter = () => {
     if (!loading || !hasMore) return null;
-    
+
     return (
       <View style={styles.footer}>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -51,7 +51,9 @@ export const MovieGrid: React.FC<MovieGridProps> = ({
   return (
     <FlatList
       data={movies}
-      renderItem={({ item }) => <MovieCard movie={item} onPress={onMoviePress} />}
+      renderItem={({ item }) => (
+        <MovieCard movie={item} onPress={onMoviePress} />
+      )}
       keyExtractor={(item) => item.id.toString()}
       numColumns={2}
       columnWrapperStyle={styles.columnWrapper}
@@ -75,25 +77,25 @@ const styles = StyleSheet.create({
     padding: 0, // No padding in the design
   },
   columnWrapper: {
-    justifyContent: 'space-evenly', // Even spacing between items
+    justifyContent: "space-evenly", // Even spacing between items
   },
   footer: {
     paddingVertical: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   errorText: {
     fontSize: 16,
-    color: 'red',
+    color: "red",
     marginBottom: 8,
   },
   errorSubText: {
     fontSize: 14,
-    color: 'gray',
+    color: "gray",
   },
 });

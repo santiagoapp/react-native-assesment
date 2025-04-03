@@ -18,7 +18,7 @@ export default function DiscoveryScreen() {
   };
 
   const getHeaderTitle = () => {
-    return category === 'popular' ? 'Popular Movies' : 'Top Rated Movies';
+    return category === "popular" ? "Popular Movies" : "Top Rated Movies";
   };
 
   return (
@@ -28,8 +28,8 @@ export default function DiscoveryScreen() {
           headerShown: false,
         }}
       />
-      <Header 
-        title={getHeaderTitle()} 
+      <Header
+        title={getHeaderTitle()}
         onCategoryChange={setCategory}
         currentCategory={category}
       />

@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
-import { fetchMovies } from '@/services/api';
-import { Movie, MovieCategory } from '@/types/movie';
+import { useState, useEffect, useCallback } from "react";
+import { fetchMovies } from "@/services/api";
+import { Movie, MovieCategory } from "@/types/movie";
 
 interface UseMoviesResult {
   movies: Movie[];
@@ -18,20 +18,27 @@ export const useMovies = (category: MovieCategory): UseMoviesResult => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  const loadMovies = useCallback(async (page: number, append: boolean = false) => {
-    try {
-      setLoading(true);
-      const response = await fetchMovies(category, page);
-      
-      setMovies(prev => append ? [...prev, ...response.results] : response.results);
-      setTotalPages(response.total_pages);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An unknown error occurred'));
-    } finally {
-      setLoading(false);
-    }
-  }, [category]);
+  const loadMovies = useCallback(
+    async (page: number, append: boolean = false) => {
+      try {
+        setLoading(true);
+        const response = await fetchMovies(category, page);
+
+        setMovies((prev) =>
+          append ? [...prev, ...response.results] : response.results
+        );
+        setTotalPages(response.total_pages);
+        setError(null);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err : new Error("An unknown error occurred")
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [category]
+  );
 
   useEffect(() => {
     loadMovies(1, false);
@@ -56,6 +63,6 @@ export const useMovies = (category: MovieCategory): UseMoviesResult => {
     error,
     loadMore,
     refreshMovies,
-    hasMore: currentPage < totalPages
+    hasMore: currentPage < totalPages,
   };
 };
