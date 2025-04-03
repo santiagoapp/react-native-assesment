@@ -1,5 +1,5 @@
 import { fetchMovies } from "../api";
-import { API_BASE_URL, API_KEY } from "@/constants/Config";
+import { MOVIE_API_BASE_URL, API_KEY } from "@/constants/Config";
 
 // Mock the global fetch function
 global.fetch = jest.fn();
@@ -46,7 +46,7 @@ describe("API Service", () => {
       const result = await fetchMovies("popular", 1);
 
       expect(fetch).toHaveBeenCalledWith(
-        `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=1`
+        `${MOVIE_API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=1`
       );
 
       expect(result).toEqual(mockMoviesResponse);
@@ -63,7 +63,7 @@ describe("API Service", () => {
       );
 
       expect(fetch).toHaveBeenCalledWith(
-        `${API_BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=1`
+        `${MOVIE_API_BASE_URL}/movie/top_rated?api_key=${API_KEY}&page=1`
       );
 
       expect(console.error).toHaveBeenCalled();

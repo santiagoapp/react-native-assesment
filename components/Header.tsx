@@ -4,6 +4,7 @@ import { useNavigation } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MovieCategory } from '@/types/movie';
+import { LogoutButton } from '@/components/LogoutButton';
 
 interface HeaderProps {
   title: string;
@@ -41,10 +42,12 @@ export function Header({ title, showBackButton = false, onCategoryChange, curren
           <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <View style={styles.rightSection}>
+          <LogoutButton />
           {!disableMenu && (
             <TouchableOpacity 
               onPress={() => setMenuVisible(true)}
               testID="header-menu-button"
+              style={styles.menuButton}
             >
               <Text style={styles.menuIcon}>⋮</Text>
             </TouchableOpacity>
@@ -95,6 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
+  },
+  menuButton: {
+    marginLeft: 10,
   },
   menuContainer: {
     backgroundColor: '#1a1a1a',
@@ -151,8 +157,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rightSection: {
-    width: 40,
-    alignItems: 'flex-end',
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   headerTitle: {
     color: '#fff',

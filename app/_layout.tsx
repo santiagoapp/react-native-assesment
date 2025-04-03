@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { AlertProvider } from "@/utils/alertUtils";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -43,17 +46,24 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <FavoritesProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            animation: "fade",
-            animationDuration: 1,
-          }}
-        >
-          <Stack.Screen name="(movie)" />
-        </Stack>
-      </FavoritesProvider>
+      <AuthProvider>
+        <AlertProvider>
+          <ProtectedRoute>
+            <FavoritesProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: "fade",
+                  animationDuration: 1,
+                }}
+              >
+                <Stack.Screen name="(auth)" />
+                <Stack.Screen name="(movie)" />
+              </Stack>
+            </FavoritesProvider>
+          </ProtectedRoute>
+        </AlertProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

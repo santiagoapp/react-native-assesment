@@ -1,10 +1,10 @@
-import { API_BASE_URL, API_KEY } from '@/constants/Config';
+import { MOVIE_API_BASE_URL, API_KEY } from '@/constants/Config';
 import { Movie, MovieCategory, MovieResponse } from '@/types/movie';
 
 export const fetchMovies = async (category: MovieCategory, page = 1): Promise<MovieResponse> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/movie/${category}?api_key=${API_KEY}&page=${page}`
+      `${MOVIE_API_BASE_URL}/movie/${category}?api_key=${API_KEY}&page=${page}`
     );
     
     if (!response.ok) {
@@ -21,7 +21,7 @@ export const fetchMovies = async (category: MovieCategory, page = 1): Promise<Mo
 export const fetchMovieDetails = async (movieId: number): Promise<Movie> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/movie/${movieId}?api_key=${API_KEY}`
+      `${MOVIE_API_BASE_URL}/movie/${movieId}?api_key=${API_KEY}`
     );
     
     if (!response.ok) {
